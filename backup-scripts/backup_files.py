@@ -1,8 +1,10 @@
 from array_files import files
+from decouple import config
 
-origin_dir = ''
+FROM_DIR = config("GZE_TO_DIR")
 
-destination_dir = ''
+TO_DIR = config("GZE_TO_DIR")
 
 for i in files:
     print(i)
+    print("scp command")

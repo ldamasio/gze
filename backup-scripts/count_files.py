@@ -1,8 +1,10 @@
 from array_files import files
 
+block_size = 200
+
 print (len(files))
 
 
 
-print (len(files) * 200)
+print (str(len(files) * block_size) + "M")
 
