@@ -25,7 +25,6 @@ scp = SCPClient(ssh.get_transport())
 for i in files:
     LOCAL_FILE = i
     LOCAL_FULL_PATH = LOCAL_DIR + '/' + LOCAL_FILE
-    LOCAL_FULL_PATH = LOCAL_FULL_PATH.decode()
 
     print(LOCAL_FULL_PATH)
     scp.put(LOCAL_FULL_PATH, recursive=True, remote_path=REMOTE_DIR)
