@@ -1,12 +1,18 @@
 import paramiko
 from scp import SCPClient
+from decouple import config
 
-server = '158.220.104.74'
-port = '22'
-user = 'root'
-password = 'dD4fLD622ijNe8KEir'
+LOCAL_DIR = '.'
+LOCAL_FILE = 'count_files.py'
+LOCAL_FULL_PATH = LOCAL_DIR + '/' + LOCAL_FILE
+REMOTE_DIR = config("GZE_TO_DIR")
 
-def createSSHClient(server, port, user, password):
+REMOTE_SERVER = config("REMOTE_SERVER")
+REMOTE_PORT = config("REMOTE_PORT")
+REMOTE_USER = config("REMOTE_USER")
+REMOTE_PASSWORD = config("REMOTE_PASSWORD")
+
+def createSSHClient(REMOTE_SERVER, REMOTE_PORT, REMOTE_USER, REMOTE_PASSWORD):
     client = paramiko.SSHClient()
     client.load_system_host_keys()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -16,6 +22,6 @@ def createSSHClient(server, port, user, password):
 ssh = createSSHClient(server, port, user, password)
 scp = SCPClient(ssh.get_transport())
 
-scp.put('count_files.py', recursive=True, remote_path='/backup')
+scp.put(LOCAL_FULL_PATH, recursive=True, remote_path=REMOTE_DIR)
 
 scp.close()
